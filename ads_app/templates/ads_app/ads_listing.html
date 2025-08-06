@@ -1,0 +1,78 @@
+{% extends "ads_app/base.html" %}
+{% load static %}
+{% block title %}Filter Ads{% endblock %}
+
+{% block content %}
+<form class="filter-form" action="{% url 'ads_listing' %}" method="GET" style="margin-bottom: 20px;">
+  {% csrf_token %}
+  <h2>Search & Filter Ads</h2>
+
+  <div class="form-group">
+    <label for="keywords">Keywords (Title or Description)</label>
+    <input type="text" id="keywords" name="keywords" placeholder="e.g. laptop, bicycle, phone">
+  </div>
+
+  <div class="filter-row">
+    <div class="form-group">
+      <label for="category">Category</label>
+      <select id="category" name="category">
+        <option value="">All Categories</option>
+        <option value="electronics">Electronics</option>
+        <option value="clothing">Clothing</option>
+        <option value="books">Books</option>
+        <option value="furniture">Furniture</option>
+      </select>
+    </div>
+
+    <div class="form-group">
+      <label for="condition">Condition</label>
+      <select id="condition" name="condition">
+        <option value="">Any Condition</option>
+        <option value="new">New</option>
+        <option value="used">Used</option>
+      </select>
+    </div>
+  </div>
+
+  <div class="filter-row">
+    <div class="form-group pagination">
+      <label for="page">Page</label>
+      <input type="number" id="page" name="page" min="1" value="1">
+    </div>
+
+    <div class="form-group pagination">
+      <label for="limit">Results per page</label>
+      <input type="number" id="limit" name="limit" min="1" max="50" value="5">
+    </div>
+  </div>
+
+  <button type="submit">Search</button>
+</form>
+
+<div class="ads-list">
+  {% for ad in ads %}
+    <div class="ad-item">
+      <div class="ad-header">
+      <h3>{{ ad.title }}</h3>
+      {% if ad.user == request.user %}
+      <a href="{% url 'edit_ad' ad.id %}">
+        <i class="bi bi-pen"></i>
+      </a>
+      {% endif %}
+      </div>
+      {% if ad.image_url %}
+        <img src="{{ ad.image_url }}" alt="{{ ad.title }}" style="max-width: 100%; border-radius: 8px;">
+      {% endif %}
+      <p class="ad-description" >{{ ad.description }}</p>
+      <p><strong>Category:</strong> {{ ad.category }}</p>
+      <p><strong>Condition:</strong> {{ ad.condition }}</p>
+      <p><strong>Posted on:</strong> {{ ad.created_at|date:"Y-m-d H:i" }}</p>
+      <button class="btn btn-primary" onclick="location.href='{% url 'ad_detail' ad.id %}'">View Details</button>
+
+
+    </div>
+  {% empty %}
+    <p>No ads found matching your criteria.</p>
+  {% endfor %}
+</div>
+{% endblock %}

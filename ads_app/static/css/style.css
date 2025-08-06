@@ -1,0 +1,155 @@
+* {
+  box-sizing: border-box;
+  font-family: 'Inter', sans-serif;
+
+}
+a{
+  text-decoration: none;
+  color: inherit;
+}
+
+body {
+  background: #f1f5f9;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  /* align-items: center; */
+  min-height: 100vh;
+}
+  .form-container,
+.filter-form {
+  background: white;
+  padding: 30px;
+  margin: auto;
+  border-radius: 12px;
+  max-width: 700px;
+  width: 100%;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+  align-items: center;
+}
+
+.form-container h2,
+.filter-form h2 {
+  margin-bottom: 20px;
+  color: #111827;
+  text-align: center;
+}
+
+.form-group {
+  margin-bottom: 20px;
+}
+
+label {
+  display: block;
+  margin-bottom: 6px;
+  font-weight: 600;
+  color: #374151;
+}
+
+input[type="text"],
+textarea,
+select,
+input[type="number"] {
+  width: 100%;
+  padding: 12px;
+  border: 1px solid #d1d5db;
+  border-radius: 8px;
+  background: #f9fafb;
+  margin-bottom: 20px;
+}
+
+input:focus,
+textarea:focus,
+select:focus {
+  border-color: #2563eb;
+  background: #fff;
+  outline: none;
+}
+
+textarea {
+  resize: vertical;
+  min-height: 100px;
+}
+
+button {
+  padding: 12px 20px;
+  background: #2563eb;
+  color: white;
+  border: none;
+  border-radius: 8px;
+  font-weight: 600;
+  font-size: 16px;
+  cursor: pointer;
+  transition: background 0.3s ease;
+  width: 100%;
+}
+
+button:hover {
+  background: #1d4ed8;
+}
+
+.filter-row {
+  display: flex;
+  gap: 20px;
+  flex-wrap: wrap;
+}
+
+.filter-row .form-group {
+  flex: 1;
+  min-width: 200px;
+}
+
+.pagination input {
+  width: 80px;
+}
+
+.ads-list {
+  margin: auto;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 20px;
+  max-width: 700px;
+  width: 100%;
+}
+.ad-item {
+  background: white;
+  padding: 20px;
+  border-radius: 12px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items:flex-;
+  width: 100%;
+  
+}
+.ad-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+}
+.ad-description {
+  margin-top: 10px;
+  color: black;
+  border:#111827 1px solid;
+  padding: 10px;
+  border-radius: 8px;
+  width: 100%;
+  min-height: 150px;
+}
+
+
+.form-proposal{
+  background: white;
+  margin: auto;
+  margin-inline: auto;
+  padding: 20px;
+  border-radius: 12px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+  width: 100%;
+  /* max-width: 2000px; */
+}

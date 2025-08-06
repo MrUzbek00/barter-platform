@@ -1,0 +1,71 @@
+{% extends 'ads_app/base.html' %}
+{% load static %}
+{% block title %}Proposed Ads{% endblock %}
+
+{% block content %}
+
+
+  
+  <div class="form-group form-proposal">
+    <h2>Proposed Ads</h2>
+  <table class="table table-striped">
+    <thead>
+      <tr>
+        <th>#</th>
+        <th>Proposal ID</th>
+        <th>Your Ad</th>
+        <th>Receiver Ad</th>
+        <th>Comment</th>
+        <th>Proposed On</th>
+        <th>Status</th>
+        <th></th>
+        <th></th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for proposal in proposals %}
+    <form method="POST" action="{% url 'update_proposal_status' proposal.id %}">
+      {% csrf_token %}
+      <tr>
+        <td>{{ forloop.counter }}</td>
+        <td>{{ proposal.id }}</td>
+        <td>
+          <a href="{% url 'ad_detail' proposal.ad_sender.id %}" >
+                {{proposal.ad_sender.title}}
+          </a>
+        </td>
+        <td><a href="{% url 'ad_detail' proposal.ad_receiver.id %}" > {{ proposal.ad_receiver.title }}</a></td>
+        <td>{{ proposal.comment }}</td>
+        <td>{{ proposal.created_at|date:"Y-m-d" }}</td>
+        <td><select name="status" class="form-select" {% if proposal.ad_sender.user == user %}disabled{% endif %}>
+              <option  value="pending" {% if proposal.status == 'pending' %}selected{% endif %}>Pending</option>
+              <option  value="accepted" {% if proposal.status == 'accepted' %}selected{% endif %}>Accepted</option>
+              <option  value="rejected" {% if proposal.status == 'rejected' %}selected{% endif %}>Rejected</option>
+            </select>
+        </td>
+        <td>
+          {% if proposal.ad_receiver.user == user %}
+          <button class="btn btn-primary" type="submit" name="accept" value="{{ proposal.id }}"><i class="bi bi-check-circle"></i></button>
+          {% endif%}  
+        </td>
+        <td><button class="btn btn-danger" type="submit" name="delete" value="{{ proposal.id }}"><i class="bi bi-trash"></i></button></td>
+      </tr>
+      {% endfor %}
+    </tbody>  
+  </div>
+
+
+
+</form>
+
+
+
+
+
+
+
+
+
+
+
+{% endblock %}

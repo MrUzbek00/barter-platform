@@ -1,0 +1,12 @@
+{% extends "ads_app/base.html" %}
+
+{% block title %}Create Listing{% endblock %}
+
+{% block content %}
+<form class="form-container" action="{% if ad %}{% url 'edit_ad' ad.id %}{% else %}{% url 'ads_form' %}{% endif %}" method="POST">
+  {% csrf_token %}
+  <h2>{% if ad %}Edit{% else %}Create{% endif %} Ad</h2>
+  {{ form.as_p }}
+  <button type="submit">{% if ad %}Update{% else %}Post{% endif %} Ad</button>
+</form>
+{% endblock %}

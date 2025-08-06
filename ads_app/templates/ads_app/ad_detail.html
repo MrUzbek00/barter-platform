@@ -1,0 +1,44 @@
+{% extends 'ads_app/base.html' %}
+{% load static %}
+{% block title %}Ad Detail{% endblock %}
+{% block content %}
+<form class="form-container" action="{% url 'create_exchange_proposal' %}" method="POST">
+  {% csrf_token %}
+    <h2>{{ ad.title }}</h2>
+    <p><strong>Posted by:</strong> {{ ad.user.username }}</p>
+    <p><strong>Posted on:</strong> {{ ad.created_at|date:"Y-m-d H:i" }}</p>
+    <p><strong>Description:</strong> {{ ad.description }}</p>
+    <p><strong>Category:</strong> {{ ad.category }}</p>
+    <p><strong>Condition:</strong> {{ ad.condition }}</p>
+    {% if ad.image_url %}
+    <img src="{{ ad.image_url }}" alt="{{ ad.title }}" style="max-width: 300px;">
+    {% endif %}
+
+    {% if error %}
+    <p style="color: red;">{{ error }}</p>
+    {% endif %}
+
+    <hr>
+    <h4>Propose Exchange</h4>
+
+    
+    <input type="hidden" name="receiver_ad_id" value="{{ ad.id }}">
+    
+    <label for="sender_ad_id">Select one of your ads to exchange:</label>
+    <select name="sender_ad_id" required>
+        {% if user_ads%}
+            {% for my_ad in user_ads %}
+            <option value="{{ my_ad.id }}">{{ my_ad.title }}</option>
+            {% endfor %}
+        {% else %}
+            <option value="">You have no ads to exchange</option>
+        {% endif %}
+    </select>
+    
+    <label for="comment">Comment (optional):</label>
+    <textarea name="comment" rows="3" class="form-control"></textarea>
+    
+    <button type="submit" class="btn btn-success">Send Proposal</button>
+
+</form>
+{% endblock %}
